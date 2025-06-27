@@ -1,0 +1,8 @@
+SELECT 
+emp.name, 
+pos.salary * (tax_percentage::decimal) * 0.01 as tax 
+FROM employees emp 
+JOIN contracts con
+ON con.id = emp.contract_id
+JOIN positions pos ON pos.id = emp.position_id
+WHERE salary < 50000;
