@@ -186,7 +186,7 @@ class Cart:
                 f"Товара '{product_name}' на складе недостаточно (запрошено {quantity}, есть {product.quantity}).")
 
         """
-        Проверка продажи витаминов без рецепта
+        Продажи витаминов
         w_p h_p  f
         0   0   0
         0   1   1
@@ -196,7 +196,7 @@ class Cart:
         if product.is_vitamins() and not (product.vitamins.without_prescription or has_prescription):
             warnings.append(f"Витамины '{product_name}' нельзя отпускать без рецепта.")
 
-        # Проверка срока годности, до конца >= 24 часа
+        # Проверяем срок годности, до конца >= 24 часа
         if product.is_perishable():
             if product.perishable.expires_in_less_than(timedelta(hours=24)):
                 warnings.append(f"Товар '{product_name}' испортится менее чем через 24 часа и не может быть продан.")
