@@ -66,7 +66,7 @@ class Expression:
                 result.terms[combined_vars] += total_coeff
         return result.simplify()
 
-    def to_string(self):
+    def __str__(self):
         parts = []
         # Сортируем по самому длинному ключу
         for vars_, coeff in sorted(self.terms.items(), key=lambda x: (-len(x[0]), x[0])):
@@ -203,7 +203,7 @@ def algebra_calc(expr_str):
         expr, pos = parse_expression(tokens)
         if pos != len(tokens):
             return err.__str__()
-        return expr.to_string()
+        return expr.__str__()
     except Exception as e:
         return e.__str__()
 
