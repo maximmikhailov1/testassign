@@ -304,7 +304,7 @@ if __name__ == "__main__":
 
     cart = Cart(st)
     cart.set_norms(proteins=10, fats=10, carbs=50, calories=500)
-
+    # 100 яблок 1 молоко 19 витаминов C
     warnings = cart.add_item("Яблоко", 100)
     warnings += cart.add_item("Молоко", 1)
     warnings += cart.add_item("Витамин C", 19, has_prescription=False)
@@ -313,7 +313,7 @@ if __name__ == "__main__":
     for w in warnings:
         print("-", w)
 
-    print(f"Общая стоимость: {cart.total_cost():.2f}")
+    print(f"Общая стоимость: {cart.total_cost():.2f}\n")
 
     b, f, c, cal = cart.total_bju_calories()
     print(f"Суммарные БЖУ и калории: Белки={b:.2f}, Жиры={f:.2f}, Углеводы={c:.2f}, Калории={cal}")
