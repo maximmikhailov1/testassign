@@ -79,7 +79,7 @@ class Vitamins(Goods):
 
 class CombinedProduct(Goods):
     """
-    Товар, который может быть одновременно Food и Perishable и/или Vitamins.
+    Товар, который может быть одновременно Food и Perishable и Vitamins.
     """
 
     def __init__(self, name: str, price: float, quantity: int,
@@ -186,7 +186,7 @@ class Cart:
                 f"Товара '{product_name}' на складе недостаточно (запрошено {quantity}, есть {product.quantity}).")
 
         """
-        Продажи витаминов
+        Проверка витаминов
         w_p h_p  f
         0   0   0
         0   1   1
