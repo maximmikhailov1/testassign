@@ -1,4 +1,3 @@
-import sys
 from collections import defaultdict
 
 err = ValueError("Недопустимое выражение")
@@ -210,7 +209,7 @@ def algebra_calc(expr_str):
 
 
 if __name__ == "__main__":
-    # import sys
+    import sys
     test_inputs = [
         "2 * (3 * x + 4 * y) - 7 * y + 9",
         "z + z + 2 + 3 - 2 * z",

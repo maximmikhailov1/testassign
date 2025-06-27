@@ -6,6 +6,7 @@ class Goods:
     """
     Базовый класс товара.
     """
+
     def __init__(self, name: str, price: float, quantity: int):
         self.name = name
         self.price = price
@@ -19,6 +20,7 @@ class Food(Goods):
     """
     Продукт питания с БЖУ и калориями на 100г.
     """
+
     def __init__(self, name: str, price: float, quantity: int,
                  proteins: float, fats: float, carbs: float, calories: float):
         super().__init__(name, price, quantity)
@@ -36,6 +38,7 @@ class Perishable(Goods):
     """
     Скоропортящийся товар с датой создания и сроком годности.
     """
+
     def __init__(self, name: str, price: float, quantity: int,
                  creation_date: date, shelf_life_days: int):
         super().__init__(name, price, quantity)
@@ -64,6 +67,7 @@ class Vitamins(Goods):
     """
     Витамины с признаком отпуска без рецепта.
     """
+
     def __init__(self, name: str, price: float, quantity: int, without_prescription: bool):
         super().__init__(name, price, quantity)
         self.without_prescription = without_prescription
@@ -77,6 +81,7 @@ class CombinedProduct(Goods):
     """
     Товар, который может быть одновременно Food и Perishable и/или Vitamins.
     """
+
     def __init__(self, name: str, price: float, quantity: int,
                  food: Optional[Food] = None,
                  perishable: Optional[Perishable] = None,
@@ -98,7 +103,8 @@ class CombinedProduct(Goods):
     def __str__(self):
         parts = [f"{self.name} (цена: {self.price:.2f}, кол-во: {self.quantity})"]
         if self.is_food():
-            parts.append(f"БЖУ: {self.food.proteins:.2f}/{self.food.fats:.2f}/{self.food.carbs:.2f}, ккал: {self.food.calories}")
+            parts.append(
+                f"БЖУ: {self.food.proteins:.2f}/{self.food.fats:.2f}/{self.food.carbs:.2f}, ккал: {self.food.calories}")
         if self.is_perishable():
             exp = self.perishable.expiration_date().strftime("%d-%m-%Y")
             parts.append(f"Срок годности: до {exp}")
@@ -112,6 +118,7 @@ class Storage:
     """
     Управление складом.
     """
+
     def __init__(self):
         self.products: Dict[str, CombinedProduct] = {}
 
@@ -145,6 +152,7 @@ class Cart:
     """
     Корзина пользователя.
     """
+
     def __init__(self, storage: Storage):
         self.storage = storage
         # Словарь: имя товара -> количество
@@ -174,7 +182,8 @@ class Cart:
             return warnings
 
         if quantity > product.quantity:
-            warnings.append(f"Товара '{product_name}' на складе недостаточно (запрошено {quantity}, есть {product.quantity}).")
+            warnings.append(
+                f"Товара '{product_name}' на складе недостаточно (запрошено {quantity}, есть {product.quantity}).")
 
         """
         Проверка продажи витаминов без рецепта
@@ -185,7 +194,6 @@ class Cart:
         1   1   x
         """
         if product.is_vitamins() and not (product.vitamins.without_prescription or has_prescription):
-
             warnings.append(f"Витамины '{product_name}' нельзя отпускать без рецепта.")
 
         # Проверка срока годности, до конца >= 24 часа
@@ -325,4 +333,3 @@ if __name__ == "__main__":
     print("\nТовары, которые необходимо утилизировать:")
     for p in st.products_to_dispose():
         print("-", p)
-

@@ -1,8 +1,7 @@
+import os
 import re
 from collections import defaultdict
 from html import unescape
-import os
-from typing import Any
 
 
 def remove_html_tags(text: str):
@@ -16,6 +15,7 @@ def remove_html_tags(text: str):
     # Заменяем множественные пробелы на один
     text = re.sub(r'\s+', ' ', text)
     return unescape(text).strip()
+
 
 def get_words(text: str):
     """Извлекает слова из текста (только буквы, минимум 3 символа)"""
@@ -31,7 +31,7 @@ def count_words(words: list[str]) -> defaultdict[str, int]:
     return word_counts
 
 
-def get_top_words(file_path:str, n: int=15) -> list[tuple[str, int]]:
+def get_top_words(file_path: str, n: int = 15) -> list[tuple[str, int]]:
     """
     :param file_path: путь к файлу
     :param n: кол-во слов
@@ -43,12 +43,11 @@ def get_top_words(file_path:str, n: int=15) -> list[tuple[str, int]]:
     except Exception as e:
         print(f"Ошибка при чтении файла: {e}")
 
-    text_without_tags = remove_html_tags(html_content)
+    text_without_tags = remove_html_tags(html_content)  # type: ignore
     words = get_words(text_without_tags)
     word_counts = count_words(words)
     top_words = sorted(word_counts.items(), key=lambda x: (-x[1], x[0]))
     return top_words[:n]
-
 
 
 if __name__ == "__main__":
